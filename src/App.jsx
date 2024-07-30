@@ -177,14 +177,6 @@ function FormAddFriend({ onAddFriend }) {
   );
 }
 
-const LoadingAnimation = () => (
-  <div className="loading-animation">
-    {/* Simple spinner animation */}
-    <div className="spinner"></div>
-    Settling up...
-  </div>
-);
-
 function FormSplitBill({ selectedFriend, onSplitBill }) {
   const [bill, setBill] = useState("");
   const [paidByUser, setPaidByUser] = useState("");
