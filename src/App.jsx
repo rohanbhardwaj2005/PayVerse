@@ -177,11 +177,27 @@ function FormAddFriend({ onAddFriend }) {
   );
 }
 
+const LoadingAnimation = () => (
+  <div className="loading-animation">
+    {/* Simple spinner animation */}
+    <div className="spinner"></div>
+    Settling up...
+  </div>
+);
+
 function FormSplitBill({ selectedFriend, onSplitBill }) {
   const [bill, setBill] = useState("");
   const [paidByUser, setPaidByUser] = useState("");
   const paidByFriend = bill ? bill - paidByUser : "";
   const [whoIsPaying, setWhoIsPaying] = useState("user");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSettleUp = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -223,8 +239,23 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
         <option value="user">You</option>
         <option value="friend">{selectedFriend.name}</option>
       </select>
-
-      <Button>Split bill</Button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          gap: "10px",
+          marginTop: "20px",
+        }}
+      >
+        {selectedFriend.balance !== 0 ? (
+          <Button onClick={handleSettleUp}>
+            {isLoading ? "Settling Up..." : "Settle Up"}
+          </Button>
+        ) : (
+          <></>
+        )}
+        <Button>Split bill</Button>
+      </div>
     </form>
   );
 }
